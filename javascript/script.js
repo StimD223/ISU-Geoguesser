@@ -3,6 +3,7 @@ var current = document.getElementById('currentMap');
 var img = document.createElement('img');
 var pin = document.createElement('img');
 var myButton = document.getElementById('myButton');
+var scoreDisplay = document.getElementById('scoreDisplay');
 var isSwapped = false;
 var offsetX = 90;
 var offsetY = 50;
@@ -13,27 +14,25 @@ var mapY = 0;
 
 var placesImages = 
 [
-    "laverne.png 494 791",
-    "beard.png 612 489",
-    "lebaron.png 643 252",
-    "carver.png 490 625",
-    "lied.png 1395 480",
-    "design.png 115 225",
-    "udcc.png 270 580",
-    "seasons.png 1313 735",
-    "coover.png 330 200",
-    "gilman.png 480 175",
-    "campanile.png 710 527",
-    "helser.png 257 758"
-
-
+    "laverne.png 500 800",
+    "beard.png 615 460",
+    "lebaron.png 643 225",
+    "carver.png 503 602",
+    "lied.png 1395 445",
+    "design.png 120 193",
+    "udcc.png 270 565",
+    "seasons.png 1315 705",
+    "coover.png 335 230",
+    "gilman.png 478 150",
+    "campanile.png 700 495",
+    "helser.png 255 723"
 ]
 
 
 function getRandomImage() {
     var randomIndex = Math.floor(Math.random() * placesImages.length);
-    mapX = placesImages[randomIndex].split(' ')[1];
-    mapY = placesImages[randomIndex].split(' ')[2];
+    mapX = parseInt(placesImages[randomIndex].split(' ')[1]);
+    mapY = parseInt(placesImages[randomIndex].split(' ')[2]);
     return placesImages[randomIndex].split(' ')[0];
 }
 
@@ -42,6 +41,8 @@ function getRandomImage() {
 window.onload = function() 
 {
     current.src = "places/" + getRandomImage();
+    current.style.width = "1800px";
+    current.style.height = "850px";
 };
 
 img.src = 'icon/cy.png'; 
@@ -49,6 +50,13 @@ img.style.position = 'absolute';
 img.style.width = "50px";
 img.style.height = "auto";
 img.style.pointerEvents = "none";
+
+pin.src = 'icon/pin.png';
+pin.style.position = 'absolute';
+pin.style.width = '30px';
+pin.style.height = 'auto';
+pin.style.pointerEvents = 'none';
+
 
 
 
@@ -61,8 +69,8 @@ smallMap.addEventListener('click', function(event)
         if (isSwapped == true)
                 {
                     
-                    img.style.left = (event.clientX - offsetX) + 'px';
-                    img.style.top = (event.clientY - offsetY) + 'px';
+                    img.style.left = event.clientX - 90 + 'px';
+                    img.style.top = event.clientY - 90 + 'px';
                     xCoordinate = event.clientX - offsetX; 
                     yCoordinate = event.clientY - offsetY; 
                     console.log(xCoordinate, yCoordinate);
@@ -93,12 +101,19 @@ myButton.addEventListener('click', function()
     scoreDisplay.textContent = 'Score: ' + score;
     scoreDisplay.style.display = 'block';
     freezeGame();
+    pin.style.left = mapX + 80 + "px";
+    pin.style.top = mapY + 10 + "px";
+    document.body.appendChild(pin);
+
+
 
 });
 
-function freezeGame() {
+function freezeGame() 
+{
     smallMap.style.pointerEvents = 'none';
     current.style.pointerEvents = 'none';
 
 }
+
 
